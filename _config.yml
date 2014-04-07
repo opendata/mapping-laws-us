@@ -13,12 +13,11 @@ exclude: [".gitignore", ".ruby-version", ".ruby-gemset", "README.md", "Rakefile"
 #    Jekyll & Plugins     #
 # ----------------------- #
 
-root:            /
+root:            "/"
 permalink:       "countries/:title.html"
 destination:     "_site"
 safe:            true
 lsi:             false
 pygments:        false
-paginate:        10
 markdown:        redcarpet
 titlecase:       true
