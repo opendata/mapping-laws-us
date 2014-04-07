@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Mapping Laws</title>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
+	<link rel="stylesheet" href="map.css" />
+</head>
+<body>
+	<div id="map"></div>
+</body>
+<script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
+<script src="countries_geo_data.js"></script>
+<script src="countries_data.js"></script>
+<script type="text/javascript">
+
+	// First, load and merge the data from the data files
+	function mergeData( obj1, obj2 ) {
+	    for ( var i in obj2 ) {
+	        obj1[i] = obj2[i];
+	    }
+	    return obj1;
+	};
+
+	countries.features.forEach( function(e,i){ mergeData(e.properties, countriesData.features[i].properties) });
+
+	// Now, set the map to a world view ... sorry for the offset Souther Hemisphere lovers
+	var map = L.map('map').setView([25, 0], 2.9);
+
+	// Next, set the styles & UX Components
+	var countryStyle = {
+	    // 'color': '#000',
+	    'weight': 1,
+	    'opacity': 0.3
+	};
+
+	function popup(feature, layer) {
+	    if (feature.properties && feature.properties.name) {
+	        layer.bindPopup(feature.properties.name);
+	    }
+	};
+
+		// L.tileLayer('http://{s}.tile.cloudmade.com/{key}/{styleId}/256/{z}/{x}/{y}.png', {
+		//     styleId: 22677
+		// }).addTo(map);
+
+	var mapData = {
+	    onEachFeature: popup,
+	    style: countryStyle
+	};
+
+	// Run the Map
+	L.geoJson(countries, mapData).addTo(map);
+</script>
+</html>
