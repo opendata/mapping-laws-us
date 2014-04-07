@@ -7,7 +7,7 @@ url:     'https://watershedlegal.github.io/mapping-laws/'
 author:
   name:  'Watershed Legal Services, PLLC'
   email: caseykuhlman@watershedlegal.com
-exclude: [".gitignore", ".ruby-version", ".ruby-gemset", "Gemfile", "Gemfile.lock", "countries_data_parser.rb", "README.md", "Rakefile"]
+exclude: [".gitignore", ".ruby-version", ".ruby-gemset", "Gemfile", "Gemfile.lock", "countries_data_parser.rb", "countries-geojson-data", "README.md", "Rakefile"]
 
 # ----------------------- #
 #    Jekyll & Plugins     #
