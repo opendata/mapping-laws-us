@@ -1,0 +1,24 @@
+# ----------------------- #
+#      Main Configs       #
+# ----------------------- #
+
+name:    Mapping Laws
+url:     'github.io/watershedlegal/mapping-laws'
+author:
+  name:  'Watershed Legal Services, PLLC'
+  email: caseykuhlman@watershedlegal.com
+exclude: [".gitignore", ".ruby-version", ".ruby-gemset", "README.md", "Rakefile"]
+
+# ----------------------- #
+#    Jekyll & Plugins     #
+# ----------------------- #
+
+root:            /
+permalink:       "countries/:title.html"
+destination:     "_site"
+safe:            true
+lsi:             false
+pygments:        false
+paginate:        10
+markdown:        redcarpet
+titlecase:       true
