@@ -1,6 +1,7 @@
 require 'jekyll'
 require 'shellwords.rb'
 require 'tmpdir'
+require 'fileutils'
 
 GITHUB_REPONAME = "watershedlegal/mapping-laws"
 
@@ -19,7 +20,7 @@ task :publish do
   system "git push github master"
   system "git push wsl master"
   Dir.mktmpdir do |tmp|
-    cp_r "_site/.", tmp
+    FileUtils.cp_r "_site/.", tmp
     Dir.chdir tmp
     system "git init"
     system "git add ."
