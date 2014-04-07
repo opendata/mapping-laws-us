@@ -16,7 +16,7 @@ task :publish do
   })).process
   system "git add -A"
   system "git commit -m #{message.shellescape}"
-  system "git push github master:source"
+  system "git push github master"
   system "git push wsl master"
   Dir.mktmpdir do |tmp|
     cp_r "_site/.", tmp
@@ -26,6 +26,6 @@ task :publish do
     message = "Site updated at #{Time.now.utc}"
     system "git commit -m #{message.shellescape}"
     system "git remote add origin git@github.com:#{GITHUB_REPONAME}.git"
-    system "git push origin master --force"
+    system "git push origin master:gh-pages --force"
   end
 end
