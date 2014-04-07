@@ -1,7 +1,8 @@
 require 'jekyll'
-require 'shellwords.rb'
+require 'shellwords'
 require 'tmpdir'
 require 'fileutils'
+require './countries_data_parser'
 
 GITHUB_REPONAME = "watershedlegal/mapping-laws"
 
@@ -15,6 +16,7 @@ task :publish do
     "source"      => ".",
     "destination" => "_site"
   })).process
+  parse_the_countries_data
   system "git add -A"
   system "git commit -m #{message.shellescape}"
   system "git push github master"
