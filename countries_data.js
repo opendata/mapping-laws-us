@@ -178,5 +178,5 @@ var countriesData = {"type":"FeatureCollection","features":[
 {"type":"Feature","id":"YEM","properties":{"data":""}},
 {"type":"Feature","id":"ZAF","properties":{"data":""}},
 {"type":"Feature","id":"ZMB","properties":{"data":""}},
-{"type":"Feature","id":"ZWE","properties":{"data":""}},
+{"type":"Feature","id":"ZWE","properties":{"data":""}}
 ]}
