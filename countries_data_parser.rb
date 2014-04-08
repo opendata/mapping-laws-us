@@ -7,7 +7,8 @@ def parse_the_countries_data
   # Set the Defaults
   country_data               = {}
   countries_data_header      = 'var countriesData = '
-  country_data_template_file = './countries_data.js'
+  country_data_template_file = './countries_data_template.js'
+  country_data_file          = './countries_data.js'
 
   # Load the YAML Front Matter
   files = Dir.glob("./countries/*.md")
@@ -29,5 +30,5 @@ def parse_the_countries_data
 
   # Save the Template File
   country_data_to_save = countries_data_header + JSON.dump(country_data_template)
-  File.open(country_data_template_file, 'w'){|f| f.write(country_data_to_save)}
+  File.open(country_data_file, 'w'){|f| f.write(country_data_to_save)}
 end
