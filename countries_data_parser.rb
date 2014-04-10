@@ -2,8 +2,11 @@
 require 'yaml'
 require 'json'
 
+def parse_the_countries_data testing=false
+  if testing
+    require 'lorem_ipsum_amet'
+  end
 
-def parse_the_countries_data
   # Set the Defaults
   country_data               = {}
   countries_data_header      = 'var countriesData = '
@@ -14,7 +17,11 @@ def parse_the_countries_data
   files = Dir.glob("./countries/*.md")
   files.each do |file|
     data = YAML.load(File.read(file)[/---(.|\n)*---/])
-    country_data[data['country_id'].to_s] = {'rank' => data['country_rank'], 'synopsis' => data['synopsis']}
+    unless testing
+      country_data[data['country_id'].to_s] = {'rank' => data['country_rank'], 'synopsis' => data['synopsis']}
+    else
+      country_data[data['country_id'].to_s] = {'rank' => (rand(5)+1).to_s, 'synopsis' => "#{LoremIpsum.lorem_ipsum(paragraphs: 1)}" }
+    end
   end
 
   # Load the Template File

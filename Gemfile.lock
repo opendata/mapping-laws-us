@@ -26,6 +26,7 @@ GEM
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
       rb-kqueue (>= 0.2)
+    lorem_ipsum_amet (0.6.2)
     maruku (0.7.0)
     parslet (1.5.0)
       blankslate (~> 2.0)
@@ -49,3 +50,4 @@ PLATFORMS
 
 DEPENDENCIES
   jekyll (~> 1.5.1)
+  lorem_ipsum_amet (~> 0.6.2)

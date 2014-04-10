@@ -32,3 +32,10 @@ task :publish do
     system "git push origin master:gh-pages --force"
   end
 end
+
+desc "Local Testing"
+task :test do
+  parse_the_countries_data true
+  index_file = File.join(File.dirname(__FILE__) + '/index.html')
+  system "google-chrome #{index_file}"
+end
