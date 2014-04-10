@@ -35,7 +35,13 @@ if ((host == window.location.host) && (window.location.protocol != "https:"))
 	countries.features.forEach( function(e,i){ mergeData(e.properties, countriesData.features[i].properties) });
 
 	// Now, set the map to a world view ... sorry for the offset Souther Hemisphere lovers
-	var map = L.map('map').setView([25, 0], 2.9);
+	var map = new L.Map('map');
+	var osmUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+	var osmAttrib='Map data © <a href="https://openstreetmap.org">OpenStreetMap</a>';
+	var osm = new L.TileLayer(osmUrl, {minZoom: 3, maxZoom: 8, attribution: osmAttrib});
+
+	map.setView([25, 0], 3);
+	map.addLayer(osm);
 
 	// Next, set the styles & UX Components
 	function countryStyle(feature) {
@@ -43,9 +49,9 @@ if ((host == window.location.host) && (window.location.protocol != "https:"))
         fillColor: getColor(feature.properties.rank),
         weight: 2,
         opacity: 1,
-        color: 'white',
+        color: 'F0F9E8',
         dashArray: '3',
-        fillOpacity: 0.7
+        fillOpacity: 0.5
     };
 	}
 
@@ -132,8 +138,7 @@ if ((host == window.location.host) && (window.location.protocol != "https:"))
 	// method that we will use to update the control based on feature properties passed
 	info.update = function (props) {
 	    this._div.innerHTML = '<h4>' + title + '</h4>' +  (props ?
-	        '<b>' + props.name + '</b><br />' + props.synopsis
-	        : 'Hover over a state');
+	        '<b>' + props.name + '</b><br />' + props.synopsis: '');
 	};
 
 	info.addTo(map);
