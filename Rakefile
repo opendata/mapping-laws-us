@@ -39,3 +39,9 @@ task :test do
   index_file = File.join(File.dirname(__FILE__) + '/index.html')
   system "google-chrome #{index_file}"
 end
+
+desc "Deploy Demo"
+task :demo do
+  parse_the_countries_data true
+  Rake::Task['publish'].invoke
+end
