@@ -1,8 +1,8 @@
 ---
 
-country_id: -99
+country_id: SLD
 country_name: Somaliland
-country_rank: 
-synopsis: 
+country_rank:
+synopsis:
 
 ---

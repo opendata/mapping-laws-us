@@ -1,8 +1,8 @@
 ---
 
-country_id: CS-KM
+country_id: CSK
 country_name: Kosovo
-country_rank: 
-synopsis: 
+country_rank:
+synopsis:
 
 ---
