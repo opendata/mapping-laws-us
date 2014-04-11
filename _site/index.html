@@ -16,8 +16,8 @@
 </script>
 <script src="lib/leaflet.js"></script>
 <script src="lib/colorschemes.js"></script>
-<script src="countries_geo_data.js"></script>
-<script src="countries_data.js"></script>
+<script src="lib/countries_geo_data.js"></script>
+<script src="lib/countries_data.js"></script>
 <script type="text/javascript">
 
 	var geojson;
@@ -46,31 +46,25 @@
 	// Next, set the styles & UX Components
 	function countryStyle(feature) {
     return {
-        fillColor: getColor(feature.properties.rank),
+        fillColor: getColorScheme(feature.properties.rank),
         weight: 2,
         opacity: 1,
-        color: 'F0F9E8',
+        color: getColorScheme('border-standard'),
         dashArray: '3',
         fillOpacity: 0.5
     };
 	}
 
-	function getColor(d) {
+	function getColorScheme(d) {
 	    return blueGreen(d);
 	}
-
-	function popup(feature, layer) {
-	    if (feature.properties && feature.properties.name) {
-	        layer.bindPopup(feature.properties.name);
-	    }
-	};
 
 	function highlightFeature(e) {
 	    var layer = e.target;
 
 	    layer.setStyle({
 	        weight: 2,
-	        color: getColor('border'),
+	        color: getColorScheme('border-highlight'),
 	        dashArray: '',
 	        fillOpacity: 0.8
 	    });
@@ -78,12 +72,12 @@
 	    if (!L.Browser.ie && !L.Browser.opera) {
 	        layer.bringToFront();
 	    }
-	    info.update(layer.feature.properties);
+	    info.update(layer.feature.properties, layer.feature.id);
 	}
 
 	function resetHighlight(e) {
 	    geojson.resetStyle(e.target);
-	    info.update();
+	    // info.update();
 	}
 
 	function zoomToFeature(e) {
@@ -98,29 +92,26 @@
 	    });
 	}
 
+	// Run the Map
 	var mapData = {
-	    // onEachFeature: popup,
 	    style: countryStyle,
 	    onEachFeature: onEachFeature
 	};
 
-	// Run the Map
 	geojson = L.geoJson(countries, mapData).addTo(map);
 
 	// Add the Legend
+  // loop through our density intervals and generate a label with a colored square for each interval
 	var legend = L.control({position: 'bottomright'});
 
 	legend.onAdd = function (map) {
-
 	    var div = L.DomUtil.create('div', 'info legend'),
 	        grades = [1, 2, 3, 4, 5],
-	        labels = [];
+	        labels = ['Did it', 'Sort of Did it', 'More Sort of Did it', 'Sort of Didn\'t it', 'Didn\'t it'];
 
-	    // loop through our density intervals and generate a label with a colored square for each interval
 	    for (var i = 0; i < grades.length; i++) {
-	        div.innerHTML += '<i style="background:' + getColor(grades[i]) + '"></i> ' + grades[i] + '<br>';
+	        div.innerHTML += '<i style="background:' + getColorScheme(grades[i]) + '"></i> ' + labels[i] + '<br>';
 	    }
-
 	    return div;
 	};
 
@@ -130,15 +121,15 @@
 	var info = L.control({position: 'bottomleft'});
 
 	info.onAdd = function (map) {
-	    this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+	    this._div = L.DomUtil.create('div', 'info');
 	    this.update();
 	    return this._div;
 	};
 
-	// method that we will use to update the control based on feature properties passed
-	info.update = function (props) {
-	    this._div.innerHTML = '<h4>' + title + '</h4>' +  (props ?
-	        '<b>' + props.name + '</b><br />' + props.synopsis: '');
+	info.update = function (props, ident) {
+	    this._div.innerHTML = (props ?
+		    	'<h4>' + props.name + '</h4>' + props.synopsis + '<br>' + "<a href='countries/" + ident + ".html'>Read More</a>"
+	    	: '');
 	};
 
 	info.addTo(map);
