@@ -10,8 +10,8 @@ def parse_the_countries_data testing=false
   # Set the Defaults
   country_data               = {}
   countries_data_header      = 'var countriesData = '
-  country_data_template_file = './countries_data_template.js'
-  country_data_file          = './countries_data.js'
+  country_data_template_file = './lib/countries_data_template.js'
+  country_data_file          = './lib/countries_data.js'
 
   # Load the YAML Front Matter
   files = Dir.glob("./countries/*.md")
@@ -21,6 +21,9 @@ def parse_the_countries_data testing=false
       country_data[data['country_id'].to_s] = {'rank' => data['country_rank'], 'synopsis' => data['synopsis']}
     else
       country_data[data['country_id'].to_s] = {'rank' => (rand(5)+1).to_s, 'synopsis' => "#{LoremIpsum.lorem_ipsum(paragraphs: 1)}" }
+      country_text = YAML.dump(data) + "---\n\n"
+      4.times{ country_text << (LoremIpsum.lorem_ipsum(paragraphs: 1) + "\n\n") }
+      File.open(file, 'w'){|f| f.write(country_text)}
     end
   end
 
